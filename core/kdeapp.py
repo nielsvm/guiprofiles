@@ -16,7 +16,11 @@ def running(bus_name, binary):
 def running_binary(binary):
     """Check if the named binary is running."""
     for p in psutil.process_iter():
-        if p.name() == binary:
+        if isinstance(p.name, str):
+            name = p.name
+        else:
+            name = p.name()
+        if name == binary:
             return p
     return False
 
